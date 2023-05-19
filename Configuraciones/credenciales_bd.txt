@@ -1,0 +1,6 @@
+user henrysanchez
+password GbmAdmin2022
+host https://henry-sanchez.com:2083/cpsess5207786612/3rdparty/phpMyAdmin/index.php
+bd_name henrysanchez_caro 
+
+

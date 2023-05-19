@@ -1,0 +1,5 @@
+SELECT * FROM bsc_idioma;
+INSERT INTO bsc_idioma(id, idioma) VALUES ('5','prueba');
+UPDATE bsc_idioma SET, idioma = 'Ingles' WHERE id ='2';
+DELETE FROM bsc_idioma WHERE id ='3';
+khughug
