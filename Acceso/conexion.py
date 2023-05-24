@@ -13,6 +13,8 @@ from selenium.common.exceptions import WebDriverException
 import os
 from bs4 import BeautifulSoup
 
+
+
 class Principal(object):
 
     def __init__(self) -> None:
@@ -180,7 +182,7 @@ class Principal(object):
                     texto = elemento.text
 
                     # Formatea el mensaje de consulta buena con el nivel de registro y la fecha y hora
-                    mensaje_consulta = f"INFO/{fecha_actual}/{texto}"
+                    mensaje_consulta = f"COMPLETO/{fecha_actual}/{texto}"
 
                     # Escribe el mensaje de consulta buena en la bitácora de consultas buenas
                     file.write(mensaje_consulta + "\n")
@@ -200,11 +202,14 @@ class Principal(object):
 
                 with open('bitacoraInfo.log', 'a') as file:
                     for linea in lineas:
-                        if linea[:-1].upper() == alerta.upper():
+                        linea = linea[:-1] if linea[-1]=='\n' else linea
+                        linea = linea if linea[-1]==';' else linea+';'
+                        
+                        if linea.upper() == alerta.upper():
                             break
                             
-                        mensaje_correcto = f"INFO/{fecha_actual}/{linea}"
-                        file.write(mensaje_correcto)
+                        mensaje_correcto = f"COMPLETADO/{fecha_actual}/{linea}"
+                        file.write(mensaje_correcto + "\n")
                     
                 # if not existe_error:
                     # Abre el archivo de bitácora de errores en modo de escritura
@@ -217,60 +222,61 @@ class Principal(object):
         global rutina
         rutina = sql
 #---------------------------------------------------------------------------------------------------------------------------------        
-
-    
-    # Obtener el contenido de la bitácora de errores del archivo
-    error_log_file = 'bitacoraError.log'
-    with open(error_log_file, 'r') as file:
-        error_log_data = file.read()
-
-    # Obtener el contenido de la bitácora de consultas buenas del archivo
-    info_log_file = 'bitacoraInfo.log'
-    with open(info_log_file, 'r') as file:
-        info_log_data = file.read()
-    # Crear una función para generar las filas de la tabla
-    def generate_table_rows(log_data):
-        table_rows = []
-        lines = log_data.split('\n')
+    def generar_html():
+       
+        # Obtener el contenido de la bitácora de consultas buenas del archivo
+        info_log_file = 'bitacoraInfo.log'
+        with open(info_log_file, 'r') as file:
+            info_log_data = file.read()
         
-        for line in lines:
-            fields = line.split('/')
-            if len(fields) == 3:
-                tipo = fields[0]
-                fechaHora = fields[1]
-                descripcion = fields[2]
+        # Obtener el contenido de la bitácora de errores del archivo
+        error_log_file = 'bitacoraError.log'
+        with open(error_log_file, 'r') as file:
+            error_log_data = file.read()
 
-                # Crear una nueva fila de la tabla
-                new_row = [tipo, fechaHora, descripcion]
-                
-                # Agregar la fila a la lista
-                table_rows.append(new_row)
+        # Crear una función para generar las filas de la tabla
+        def generate_table_rows(log_data):
+            table_rows = []
+            lines = log_data.split('\n')
+
+            for line in lines:
+                if line.strip() != '':
+                    fields = line.split('/')
+                    tipo = fields[0]
+                    fechaHora = fields[1]
+                    descripcion = fields[2]
+
+                    # Crear una nueva fila de la tabla
+                    new_row = [tipo, fechaHora, descripcion]
+                    # Agregar la fila a la lista
+                    table_rows.append(new_row)
+            return table_rows
+
+        # Generar las filas de la tabla para la bitácora de consultas buenas
+        info_table_rows = generate_table_rows(info_log_data)
         
-        return table_rows
+        # Generar las filas de la tabla para la bitácora de errores
+        error_table_rows = generate_table_rows(error_log_data)
 
-    # Generar las filas de la tabla para la bitácora de errores
-    error_table_rows = generate_table_rows(error_log_data)
+        # Leer el archivo HTML
+        with open('plantilla.html', 'r') as file:
+            content = file.read()
 
-    # Generar las filas de la tabla para la bitácora de consultas buenas
-    info_table_rows = generate_table_rows(info_log_data)
-
-    # Abrir el archivo HTML
-    with open('informe.html', 'r') as file:
-        content = file.read()
+        # Crear un objeto BeautifulSoup para analizar el contenido HTML
         soup = BeautifulSoup(content, 'html.parser')
 
-        # Encontrar la tabla existente en el archivo HTML
-        table_body = soup.find('tbody')
+        # Encontrar el elemento de la tabla en el archivo HTML
+        table_body = soup.find('tbody', id='table_body')
 
         # Agregar las filas generadas a la tabla existente
-        for row in error_table_rows + info_table_rows:
+        for row in info_table_rows + error_table_rows:
             tipo = row[0]
             fechaHora = row[1]
             descripcion = row[2]
-            
+
             # Crear una nueva fila de la tabla
             new_row = soup.new_tag('tr')
-            
+
             # Crear las celdas y asignarles los valores
             tipo_cell = soup.new_tag('td')
             tipo_cell.string = tipo
@@ -291,76 +297,77 @@ class Principal(object):
 
         # Guardar los cambios en el archivo HTML
         with open('informe.html', 'w') as file:
-            file.write(str(soup)) 
+            file.write(str(soup.prettify()))
+            
 #---------------------------------------------------------------------------------------------------------------------------      
-        # Obtener la fecha actual
-        fecha_actual = datetime.datetime.now().date()
+        # # Obtener la fecha actual
+        # fecha_actual = datetime.datetime.now().date()
 
-        # Definir la carpeta de destino
-        carpeta_destino = r'C:/Users/casuarez/OneDrive - GBM Corporacion/Documents/Informes'
+        # # Definir la carpeta de destino
+        # carpeta_destino = r'C:/Users/casuarez/OneDrive - GBM Corporacion/Documents/Informes'
 
-        # Ruta completa del archivo de informe
-        ruta_informe = f"{carpeta_destino}/informe.html"
+        # # Ruta completa del archivo de informe
+        # ruta_informe = f"{carpeta_destino}/informe.html"
 
-        # Verificar si el archivo del informe existe para la fecha actual y eliminarlo si es necesario
-        if os.path.isfile(ruta_informe):
-            os.remove(ruta_informe)
+        # # Verificar si el archivo del informe existe para la fecha actual y eliminarlo si es necesario
+        # if os.path.isfile(ruta_informe):
+        #     os.remove(ruta_informe)
 
-        # Obtener los datos de la bitácora de errores del archivo
-        with open('bitacoraError.log', 'r') as error_log_file:
-            error_lines = error_log_file.readlines()
+        # # Obtener los datos de la bitácora de errores del archivo
+        # with open('bitacoraError.log', 'r') as error_log_file:
+        #     error_lines = error_log_file.readlines()
 
-        # Obtener los datos de la bitácora de consultas buenas del archivo
-        with open('bitacoraInfo.log', 'r') as info_log_file:
-            info_lines = info_log_file.readlines()
+        # # Obtener los datos de la bitácora de consultas buenas del archivo
+        # with open('bitacoraInfo.log', 'r') as info_log_file:
+        #     info_lines = info_log_file.readlines()
 
-        # Generar el contenido de la tabla HTML para la bitácora de errores
-        error_table_content = ''
-        for line in error_lines:
-            fields = line.split('/')
-            if len(fields) == 3:
-                tipo = fields[0]
-                fechaHora = fields[1]
-                descripcion = fields[2]
+        # # Generar el contenido de la tabla HTML para la bitácora de errores
+        # error_table_content = ''
+        # for line in error_lines:
+        #     fields = line.split('/')
+        #     if len(fields) == 3:
+        #         tipo = fields[0]
+        #         fechaHora = fields[1]
+        #         descripcion = fields[2]
 
-                # Crear una nueva fila de la tabla
-                row = f'<tr><td>{tipo}</td><td>{fechaHora}</td><td>{descripcion}</td></tr>'
+        #         # Crear una nueva fila de la tabla
+        #         row = f'<tr><td>{tipo}</td><td>{fechaHora}</td><td>{descripcion}</td></tr>'
 
-                # Agregar la fila a la tabla
-                error_table_content += row
+        #         # Agregar la fila a la tabla
+        #         error_table_content += row
 
-        # Generar el contenido de la tabla HTML para la bitácora de consultas buenas
-        info_table_content = ''
-        for line in info_lines:
-            fields = line.split('/')
-            if len(fields) == 3:
-                tipo = 'COMPLETO'
-                fechaHora = fields[1]
-                descripcion = fields[2]
+        # # Generar el contenido de la tabla HTML para la bitácora de consultas buenas
+        # info_table_content = ''
+        # for line in info_lines:
+        #     fields = line.split('/')
+        #     if len(fields) == 3:
+        #         tipo = 'COMPLETO'
+        #         fechaHora = fields[1]
+        #         descripcion = fields[2]
 
-                # Crear una nueva fila de la tabla
-                row = f'<tr><td>{tipo}</td><td>{fechaHora}</td><td>{descripcion}</td></tr>'
+        #         # Crear una nueva fila de la tabla
+        #         row = f'<tr><td>{tipo}</td><td>{fechaHora}</td><td>{descripcion}</td></tr>'
 
-                # Agregar la fila a la tabla
-                info_table_content += row
+        #         # Agregar la fila a la tabla
+        #         info_table_content += row
 
-        # Leer el contenido del archivo de informe HTML
-        with open('informe.html', 'r') as informe_file:
-            html_content = informe_file.read()
+        # # Leer el contenido del archivo de informe HTML
+        # with open('informe.html', 'r') as informe_file:
+        #     html_content = informe_file.read()
 
-        # Buscar los marcadores de posición de las tablas en el archivo HTML
-        error_table_marker = '<!-- Aquí se insertarán las filas de la bitácora de errores -->'
-        info_table_marker = '<!-- Aquí se insertarán las filas de consultas buenas de la tabla -->'
+        # # Buscar los marcadores de posición de las tablas en el archivo HTML
+        # error_table_marker = '<!-- Aquí se insertarán las filas de la bitácora de errores -->'
+        # info_table_marker = '<!-- Aquí se insertarán las filas de consultas buenas de la tabla -->'
 
-        # Reemplazar los marcadores de posición por el contenido de las tablas actualizadas
-        html_content = html_content.replace(error_table_marker, error_table_content)
-        html_content = html_content.replace(info_table_marker, info_table_content)
+        # # Reemplazar los marcadores de posición por el contenido de las tablas actualizadas
+        # html_content = html_content.replace(error_table_marker, error_table_content)
+        # html_content = html_content.replace(info_table_marker, info_table_content)
 
-        # Guardar el resultado en un nuevo archivo HTML
-        with open(ruta_informe, 'w') as output_file:
-            output_file.write(html_content)
+        # # Guardar el resultado en un nuevo archivo HTML
+        # with open(ruta_informe, 'w') as output_file:
+        #     output_file.write(html_content)
 
-        print('El informe se ha actualizado y guardado correctamente.')
+        # print('El informe se ha actualizado y guardado correctamente.')
 #------------------------------------------------------------------------------------------------------------------------
 if __name__ == "__main__":
     
@@ -379,8 +386,6 @@ if __name__ == "__main__":
         
         try:
             codigo_verificacion = re.findall(r".*(?:\w*?|\d*?|\$*?|\#*?|\&*?|\%*?|\-*?)\S", contenido)
-            codigo_verificacion = str(codigo_verificacion).strip()
-
             
             codigo_usuario = input("Ingrese codigo de verificación: -- ")
             if codigo_usuario in codigo_verificacion:
@@ -409,3 +414,5 @@ if __name__ == "__main__":
         messagebox.showerror(title="Error de ejecución", message="No se pudo ejecutar el programa raiz.")
         enviar_correo(contenido="El programa no puede ejecutarse por fallo en el codigo o falta de dependencias.",
                       error=e, asunto="Bot System Error")
+    
+    Principal.generar_html()

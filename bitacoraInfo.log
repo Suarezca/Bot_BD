@@ -1,3 +1,3 @@
-INFO/2023-05-19 16:08:22/SELECT * FROM bsc_idioma;
-INFO/2023-05-19 16:21:53/SELECT * FROM bsc_idioma;
-INFO/2023-05-19 17:18:22/SELECT * FROM bsc_idioma;
+COMPLETO/2023-05-24 16:05:24/select * from bsc_idioma;
+COMPLETO/2023-05-24 16:05:24/insert into bsc_idioma(id, idioma) values ('7','prueba');
+COMPLETO/2023-05-24 16:05:24/delete from bsc_idioma where id ='3';

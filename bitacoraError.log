@@ -1,10 +1,2 @@
-ERROR/2023-05-19 14:17:28/update bsc_idioma set, idioma = 'ingles' where id ='2'; #1064 - Algo está equivocado en su sintax cerca ' idioma = 'ingles' where id ='2'' en la linea 1
-ERROR/2023-05-19 14:27:10/insert into bsc_idioma(id, idioma) values ('5','chino'); #1062 - Entrada duplicada '5' para la clave 'PRIMARY'
-ERROR/2023-05-19 15:04:47/insert into bsc_idioma(id, idioma) values ('5','chino'); #1062 - Entrada duplicada '5' para la clave 'PRIMARY'
-ERROR/2023-05-19 15:08:20/insert into bsc_idioma(id, idioma) values ('5','chino'); #1062 - Entrada duplicada '5' para la clave 'PRIMARY'
-ERROR/2023-05-19 15:14:27/insert into bsc_idioma(id, idioma) values ('5','chino'); #1062 - Entrada duplicada '5' para la clave 'PRIMARY'
-ERROR/2023-05-19 16:08:22/insert into bsc_idioma(id, idioma) values ('5','chino'); #1062 - Entrada duplicada '5' para la clave 'PRIMARY'
-ERROR/2023-05-19 16:21:53/insert into bsc_idioma(id, idioma) values ('5','prueba'); #1062 - Entrada duplicada '5' para la clave 'PRIMARY'
-ERROR/2023-05-19 17:10:50,060/Alguien ha ingresado las credenciales incorrectas.
-ERROR/2023-05-19 17:11:25,700/Usuario o contrasen va invalidos.
-ERROR/2023-05-19 17:18:22/insert into bsc_idioma(id, idioma) values ('5','prueba'); #1062 - Entrada duplicada '5' para la clave 'PRIMARY'
+ERROR/2023-05-24 15:59:57,107/Alguien ha ingresado las credenciales incorrectas.
+ERROR/2023-05-24 16:02:22/update bsc_idioma set, idioma = 'ingles' where id ='2'; #1064 - Algo está equivocado en su sintax cerca ' idioma = 'ingles' where id ='2'' en la linea 1
