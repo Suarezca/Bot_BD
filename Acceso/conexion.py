@@ -12,7 +12,8 @@ import datetime
 from selenium.common.exceptions import WebDriverException
 import os
 from bs4 import BeautifulSoup
-
+from Logg import logg_actions, logg_errors
+from datetime import datetime
 
 
 class Principal(object):
@@ -176,6 +177,8 @@ class Principal(object):
         if elementos:
             # Se encontraron elementos con la clase "sql-highlight cm-s-default", se considera una consulta buena
             # Abre el archivo de bitácora de consultas buenas en modo de escritura
+            
+            logg_actions("ERROR DE EJECUCION --- Prueba")
             with open('bitacoraInfo.log', 'a') as file:
                 for elemento in elementos:
                     # Captura el texto de cada elemento
@@ -187,10 +190,12 @@ class Principal(object):
                     # Escribe el mensaje de consulta buena en la bitácora de consultas buenas
                     file.write(mensaje_consulta + "\n")
         else:
+            
             # Intenta capturar el texto de los elementos XPath originales
             alerta = None
             alerta2 = None
             elementos_xpath = driver.find_elements(by=By.XPATH, value='//*[@id="sqlqueryresultsouter"]/div/pre/code')
+            logg_errors(elementos_xpath)
             if elementos_xpath:
                 alerta = elementos_xpath[0].text
             elementos_xpath2 = driver.find_elements(by=By.XPATH, value='//*[@id="sqlqueryresultsouter"]/div/code')
@@ -223,14 +228,15 @@ class Principal(object):
         rutina = sql
 #---------------------------------------------------------------------------------------------------------------------------------        
     def generar_html():
-       
+        date_file = datetime.now().strftime('%m-%d-%Y')
+        
         # Obtener el contenido de la bitácora de consultas buenas del archivo
-        info_log_file = 'bitacoraInfo.log'
-        with open(info_log_file, 'r') as file:
+        info_log_file = f"./Logg/{date_file}/Actions - {date_file}.log", "a"
+        with open(info_log_file) as file:
             info_log_data = file.read()
         
         # Obtener el contenido de la bitácora de errores del archivo
-        error_log_file = 'bitacoraError.log'
+        error_log_file = f"./Logg/{date_file}/Actions - {date_file}.log", "a"
         with open(error_log_file, 'r') as file:
             error_log_data = file.read()
 
@@ -241,7 +247,7 @@ class Principal(object):
 
             for line in lines:
                 if line.strip() != '':
-                    fields = line.split('/')
+                    fields = line.split('---')
                     tipo = fields[0]
                     fechaHora = fields[1]
                     descripcion = fields[2]
