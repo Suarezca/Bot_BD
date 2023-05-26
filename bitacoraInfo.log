@@ -1,9 +1,0 @@
-COMPLETO/2023-05-25 10:13:02/select * from bsc_idioma;
-COMPLETO/2023-05-25 10:13:02/insert into bsc_idioma(id, idioma) values ('8','prueba');
-COMPLETO/2023-05-25 10:13:02/delete from bsc_idioma where id ='6';
-COMPLETADO/2023-05-25 10:15:45/SELECT * FROM bsc_idima;
-COMPLETADO/2023-05-25 10:39:30/SELECT * FROM bsc_idima;
-COMPLETADO/2023-05-25 10:42:10/SELECT * FROM bsc_idima;
-COMPLETO/2023-05-25 10:43:22/select * from bsc_idioma;
-COMPLETO/2023-05-25 10:45:11/select * from bsc_idioma;
-COMPLETO/2023-05-25 10:58:07/select * from bsc_idioma;

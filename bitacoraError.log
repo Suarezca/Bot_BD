@@ -1,4 +1,0 @@
-ERROR/2023-05-25 10:14:22,709/Alguien ha ingresado las credenciales incorrectas.
-ERROR/2023-05-25 10:15:45/select * from bsc_idima LIMIT 0, 25 #1146 - Tabla 'henrysanchez_caro.bsc_idima' no existe
-ERROR/2023-05-25 10:39:30/select * from bsc_idima LIMIT 0, 25 #1146 - Tabla 'henrysanchez_caro.bsc_idima' no existe
-ERROR/2023-05-25 10:42:10/select * from bsc_idima LIMIT 0, 25 #1146 - Tabla 'henrysanchez_caro.bsc_idima' no existe
