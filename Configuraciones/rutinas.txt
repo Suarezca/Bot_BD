@@ -1,1 +1,1 @@
-SELECT * FROM bsc_idioma;
+INSERT INTO bsc_idioma(id, idioma) VALUES ('9','prueba');

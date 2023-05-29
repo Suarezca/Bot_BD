@@ -1,4 +1,4 @@
-def enviar_correo(error, contenido, asunto):
+def enviar_correo(contenido, asunto):
     import yagmail
 
     email = 'botgbm@gmail.com'
@@ -8,8 +8,7 @@ def enviar_correo(error, contenido, asunto):
 
     destinatario = 'cpsb1201@gmail.com'
     mensaje = f"""
-    {contenido}\n
-    {error}
+    {contenido}
     """
 
     yag.send(destinatario, asunto, mensaje)

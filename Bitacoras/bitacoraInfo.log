@@ -1,0 +1,11 @@
+INFO/2023-05-29 14:25:18/Inicio exitoso
+INFO/2023-05-29 14:26:00/COMPLETADO: SELECT * FROM bsc_idioma;
+INFO/2023-05-29 14:26:00/COMPLETADO: SELECT * FROM bsc_idioma;
+INFO/2023-05-29 14:29:01/Inicio exitoso
+INFO/2023-05-29 14:29:29/COMPLETO: insert into bsc_idioma(id, idioma) values ('9','prueba');
+INFO/2023-05-29 14:29:29/COMPLETO: select * from bsc_idioma;
+INFO/2023-05-29 17:38:32/Inicio exitoso
+INFO/2023-05-29 17:39:52/Inicio exitoso
+INFO/2023-05-29 17:55:23/Inicio exitoso
+INFO/2023-05-29 17:56:01/COMPLETADO: SELECT * FROM bsc_idioma;
+INFO/2023-05-29 17:57:02/Inicio exitoso

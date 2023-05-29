@@ -1,0 +1,4 @@
+ERROR/2023-05-29 14:26:00/Falló: select from bsc_idioma; #1064 - Algo está equivocado en su sintax cerca 'from bsc_idioma' en la linea 1
+ERROR/2023-05-29 17:41:01/Falló: insert into bsc_idioma(id, idioma) values ('9','prueba'); #1062 - Entrada duplicada '9' para la clave 'PRIMARY'
+ERROR/2023-05-29 17:56:01/Falló: insert into bsc_idioma(id, idioma) values ('9','prueba'); #1062 - Entrada duplicada '9' para la clave 'PRIMARY'
+ERROR/2023-05-29 17:57:33/Falló: insert into bsc_idioma(id, idioma) values ('9','prueba'); #1062 - Entrada duplicada '9' para la clave 'PRIMARY'

@@ -224,83 +224,83 @@ class Principal(object):
         global rutina
         rutina = sql
 # #---------------------------------------------------------------------------------------------------------------------------------        
-#     def generar_html():
-#         date_file = datetime.now().strftime('%m-%d-%Y')
+    def generar_html():
+        date_file = datetime.now().strftime('%m-%d-%Y')
         
-#         # Obtener el contenido de la bitácora de consultas buenas del archivo
-#         info_log_file = f"./Logg/{date_file}/Actions - {date_file}.log", "a"
-#         with open(info_log_file) as file:
-#             info_log_data = file.read()
+        # Obtener el contenido de la bitácora de consultas buenas del archivo
+        info_log_file = f"./Logg/{date_file}/Actions - {date_file}.log", "a"
+        with open(info_log_file) as file:
+            info_log_data = file.read()
         
-#         # Obtener el contenido de la bitácora de errores del archivo
-#         error_log_file = f"./Logg/{date_file}/Actions - {date_file}.log", "a"
-#         with open(error_log_file, 'r') as file:
-#             error_log_data = file.read()
+        # Obtener el contenido de la bitácora de errores del archivo
+        error_log_file = f"./Logg/{date_file}/Actions - {date_file}.log", "a"
+        with open(error_log_file, 'r') as file:
+            error_log_data = file.read()
 
-#         # Crear una función para generar las filas de la tabla
-#         def generate_table_rows(log_data):
-#             table_rows = []
-#             lines = log_data.split('\n')
+        # Crear una función para generar las filas de la tabla
+        def generate_table_rows(log_data):
+            table_rows = []
+            lines = log_data.split('\n')
 
-#             for line in lines:
-#                 if line.strip() != '':
-#                     fields = line.split('---')
-#                     tipo = fields[0]
-#                     fechaHora = fields[1]
-#                     descripcion = fields[2]
+            for line in lines:
+                if line.strip() != '':
+                    fields = line.split('---')
+                    tipo = fields[0]
+                    fechaHora = fields[1]
+                    descripcion = fields[2]
 
-#                     # Crear una nueva fila de la tabla
-#                     new_row = [tipo, fechaHora, descripcion]
-#                     # Agregar la fila a la lista
-#                     table_rows.append(new_row)
-#             return table_rows
+                    # Crear una nueva fila de la tabla
+                    new_row = [tipo, fechaHora, descripcion]
+                    # Agregar la fila a la lista
+                    table_rows.append(new_row)
+            return table_rows
 
-#         # Generar las filas de la tabla para la bitácora de consultas buenas
-#         info_table_rows = generate_table_rows(info_log_data)
+        # Generar las filas de la tabla para la bitácora de consultas buenas
+        info_table_rows = generate_table_rows(info_log_data)
         
-#         # Generar las filas de la tabla para la bitácora de errores
-#         error_table_rows = generate_table_rows(error_log_data)
+        # Generar las filas de la tabla para la bitácora de errores
+        error_table_rows = generate_table_rows(error_log_data)
 
-#         # Leer el archivo HTML
-#         with open('plantilla.html', 'r') as file:
-#             content = file.read()
+        # Leer el archivo HTML
+        with open('plantilla.html', 'r') as file:
+            content = file.read()
 
-#         # Crear un objeto BeautifulSoup para analizar el contenido HTML
-#         soup = BeautifulSoup(content, 'html.parser')
+        # Crear un objeto BeautifulSoup para analizar el contenido HTML
+        soup = BeautifulSoup(content, 'html.parser')
 
-#         # Encontrar el elemento de la tabla en el archivo HTML
-#         table_body = soup.find('tbody', id='table_body')
+        # Encontrar el elemento de la tabla en el archivo HTML
+        table_body = soup.find('tbody', id='table_body')
 
-#         # Agregar las filas generadas a la tabla existente
-#         for row in info_table_rows + error_table_rows:
-#             tipo = row[0]
-#             fechaHora = row[1]
-#             descripcion = row[2]
+        # Agregar las filas generadas a la tabla existente
+        for row in info_table_rows + error_table_rows:
+            tipo = row[0]
+            fechaHora = row[1]
+            descripcion = row[2]
 
-#             # Crear una nueva fila de la tabla
-#             new_row = soup.new_tag('tr')
+            # Crear una nueva fila de la tabla
+            new_row = soup.new_tag('tr')
 
-#             # Crear las celdas y asignarles los valores
-#             tipo_cell = soup.new_tag('td')
-#             tipo_cell.string = tipo
+            # Crear las celdas y asignarles los valores
+            tipo_cell = soup.new_tag('td')
+            tipo_cell.string = tipo
 
-#             fechaHora_cell = soup.new_tag('td')
-#             fechaHora_cell.string = fechaHora
+            fechaHora_cell = soup.new_tag('td')
+            fechaHora_cell.string = fechaHora
 
-#             descripcion_cell = soup.new_tag('td')
-#             descripcion_cell.string = descripcion
+            descripcion_cell = soup.new_tag('td')
+            descripcion_cell.string = descripcion
 
-#             # Agregar las celdas a la fila
-#             new_row.append(tipo_cell)
-#             new_row.append(fechaHora_cell)
-#             new_row.append(descripcion_cell)
+            # Agregar las celdas a la fila
+            new_row.append(tipo_cell)
+            new_row.append(fechaHora_cell)
+            new_row.append(descripcion_cell)
 
-#             # Agregar la fila a la tabla
-#             table_body.append(new_row)
+            # Agregar la fila a la tabla
+            table_body.append(new_row)
 
-#         # Guardar los cambios en el archivo HTML
-#         with open('informe.html', 'w') as file:
-#             file.write(str(soup.prettify()))
+        # Guardar los cambios en el archivo HTML
+        with open('informe.html', 'w') as file:
+            file.write(str(soup.prettify()))
             
 # #---------------------------------------------------------------------------------------------------------------------------      
       
