@@ -9,3 +9,17 @@ INFO/2023-05-29 17:39:52/Inicio exitoso
 INFO/2023-05-29 17:55:23/Inicio exitoso
 INFO/2023-05-29 17:56:01/COMPLETADO: SELECT * FROM bsc_idioma;
 INFO/2023-05-29 17:57:02/Inicio exitoso
+INFO/2023-05-30 08:40:56/Inicio exitoso
+INFO/2023-05-30 08:44:27/Inicio exitoso
+INFO/2023-05-30 08:50:48/Inicio exitoso
+INFO/2023-05-30 08:53:37/Inicio exitoso
+INFO/2023-05-30 08:59:34/Inicio exitoso
+INFO/2023-05-30 09:16:22/Inicio exitoso
+INFO/2023-05-30 09:28:17/Inicio exitoso
+INFO/2023-05-30 09:29:05/COMPLETO: update bsc_idioma set idioma = 'portuges' where id = 8;
+INFO/2023-05-30 09:29:05/COMPLETO: delete from bsc_idioma where id = '9';
+INFO/2023-05-30 09:29:05/COMPLETO: select * from bsc_idioma;
+INFO/2023-05-30 10:38:10/Inicio exitoso
+INFO/2023-05-30 15:24:52/Inicio exitoso
+INFO/2023-05-30 15:30:52/Inicio exitoso
+INFO/2023-05-30 15:44:28/Inicio exitoso
